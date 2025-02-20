@@ -2,7 +2,7 @@
 
 Material generado para la materia de natural language processing del grupo 7CM2
 
-## :folder: Estructura del repositorio
+## 📁 Estructura del repositorio
 
 El proyecto se organizará mediante carpetas, donde cada una de ellas será destinada a prácticas o material utilizado, se nombrarán para que sea sencillo identificarlas y acceder a ellas. La estructura del repositorio será la siguiente:
 
@@ -14,6 +14,6 @@ El proyecto se organizará mediante carpetas, donde cada una de ellas será dest
 - Lenguaje de programación: Python
 - Librerías:
 
-## Autor
+## ✍️ Autor
 - Nombre: Saucedo Moreno César Enrique.
 
