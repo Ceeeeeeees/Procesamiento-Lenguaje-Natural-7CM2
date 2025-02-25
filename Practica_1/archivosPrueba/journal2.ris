@@ -1,0 +1,18 @@
+TY  - JOUR
+AU  - Fatima, N. Sabiyath
+AU  - Deepika, G.
+AU  - Anthonisamy, Arun
+AU  - Chitra, R. Jothi
+AU  - Muralidharan, J.
+AU  - Alagarsamy, Manjunathan
+AU  - Ramyasree, Kummari
+PY  - 2025
+DA  - 2025/01/29
+TI  - Enhanced Facial Emotion Recognition Using Vision Transformer Models
+JO  - Journal of Electrical Engineering & Technology
+AB  - Automation of facial emotion recognition is an important branch of artificial intelligence and computer vision that has many potential applications in mental health diagnostics, human–computer interaction and security. The existing methods, however, usually have weaknesses in robustness, scalability and computational efficiency. This work proposes a self-attention-based Vision Transformer method that treats images as sequences of patches to capture global dependencies and spatial relations more effectively than other methods. The model is trained and evaluated using a large-scale dataset. On average, the model achieves an overall accuracy of 97%, with good precision, recall and F1 scores in most emotion categories. The model performed better and was more robust to variations in illumination and facial pose compared to other existing methods. This work takes a step forward in facial emotion recognition technology, providing a large-scale and efficient solution for real-world applications. Facial Emotion Recognition, a New Vision Transformer Based on Self-Attention for Machine Learning.
+SN  - 2093-7423
+UR  - https://doi.org/10.1007/s42835-024-02118-w
+DO  - 10.1007/s42835-024-02118-w
+ID  - Fatima2025
+ER  - 

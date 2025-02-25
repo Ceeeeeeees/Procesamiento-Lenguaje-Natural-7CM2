@@ -1,0 +1,16 @@
+TY  - CONF
+AU  - Sandkuhl, Kurt
+ED  - Řepa, Václav
+ED  - Matulevičius, Raimundas
+ED  - Laurenzi, Emanuele
+PY  - 2024
+TI  - LLM-Assistance for Quality Control of LLM Output
+BT  - Perspectives in Business Informatics Research
+SP  - 36
+EP  - 50
+PB  - Springer Nature Switzerland
+CY  - Cham
+AB  - Large language models (LLM) have been successfully applied in enterprise modelling (EM) for various tasks, such as supporting modellers and domain experts in modelling the current situation in enterprises. An important factor for the successful application of LLM is the quality of the LLM output. This paper’s research investigates whether LLM can be used as a tool for the quality control of LLM output. Starting from an analysis of LLM evaluation approaches, the paper focuses on investigating scenarios for LLM use and relevant quality criteria. The main contributions of this paper are (1) an approach for using LLM as support for quality control of LLM output in enterprise modelling consisting of quality criteria for defined application scenarios and their operationalization and (2) quasi-experiments showing the applicability of the approach.
+SN  - 978-3-031-71333-0
+ID  - 10.1007/978-3-031-71333-0_3
+ER  - 

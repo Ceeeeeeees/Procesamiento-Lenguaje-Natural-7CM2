@@ -1,0 +1,25 @@
+TY  - CONF
+AU  - Huang, Hui
+AU  - Wu, Shuangzhi
+AU  - Liang, Xinnian
+AU  - Wang, Bing
+AU  - Shi, Yanrui
+AU  - Wu, Peihao
+AU  - Yang, Muyun
+AU  - Zhao, Tiejun
+ED  - Liu, Fei
+ED  - Duan, Nan
+ED  - Xu, Qingting
+ED  - Hong, Yu
+PY  - 2023
+DA  - 2023//
+TI  - Towards Making the Most of LLM for Translation Quality Estimation
+BT  - Natural Language Processing and Chinese Computing
+SP  - 375
+EP  - 386
+PB  - Springer Nature Switzerland
+CY  - Cham
+AB  - Machine Translation Quality Estimation (QE) aims to evaluate the quality of machine translation without relying on references. Recently, Large-scale Language Model (LLM) has made major breakthroughs, and has shown excellent zero-shot ability on various natural language processing tasks. However, its application on QE is non-trivial and has not yet been explored. In this work, we aim to exploit the translation estimation ability of LLM, and propose an unsupervised QE framework via exploring the useful information that can be extracted from the LLM. We firstly formulate QE in a machine translation template, and derive the sequence-level probabilities as the translation estimation result. Moreover, we exploit the uncertainty of LLM as another QE evidence, by randomize the LLM with different demonstrations and prompts, and obtain the variance. We evaluate our method on WMT’22 QE data, and achieve high correlation with human judgments of quality, rivalling state-of-the-art supervised QE models. We also provide in-detailed analysis on the ability of LLM on QE task.
+SN  - 978-3-031-44693-1
+ID  - 10.1007/978-3-031-44693-1_30
+ER  - 
