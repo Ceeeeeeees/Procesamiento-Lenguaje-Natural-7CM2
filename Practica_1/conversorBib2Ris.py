@@ -230,7 +230,7 @@ class ConversorBib2Ris(ConversorBase):
         """
         Este método permite convertir las páginas de un archivo BibTex a un formato RIS (SP - EP)
         """
-        regexPaginas = re.compile(r'\bpages\b\s*=\s*\{(\d+)[--—]?(\d+)\}\,')
+        regexPaginas = re.compile(r'\bpages\b\s*=\s*\{(\d+)[-–]?-?(\d+)\}\,')
         coincidencia = regexPaginas.search(contenido)
         
         if not coincidencia:
@@ -262,7 +262,7 @@ class ConversorBib2Ris(ConversorBase):
         """
         Este método permite convertir el ISBN o ISSN de un archivo BibTex a un formato RIS
         """
-        regexISBNorISSN = re.compile(r'\b(isbn|issn)\b\s*=\s*\{([\d-]+)\}\,')
+        regexISBNorISSN = re.compile(r'\b(isbn|issn)\b\s*=\s*\{([\d-]+)\}\,?')
         coincidencias = regexISBNorISSN.findall(contenido)
 
         if not coincidencias:
@@ -305,7 +305,7 @@ class ConversorBib2Ris(ConversorBase):
         La búsqueda la realiza con un prefjo (http://) o (https://) y un sufijo que identifica la URL,
         el sufijo no puede contener espacios en blanco ni llaves
         """
-        regexURL = re.compile(r'\burl\b\s*=\s*\{(https?://[^\s{}]+)\}\,')     #No busca espacios en blanco, ni llaves
+        regexURL = re.compile(r'\burl\b\s*=\s*\{(https?://[^\s{}]+)\}\,?')     #No busca espacios en blanco, ni llaves
         coincidencia = regexURL.search(contenido)
 
         if not coincidencia:
@@ -379,6 +379,6 @@ class ConversorBib2Ris(ConversorBase):
         contenido = regexLlaveFinal.sub("", contenido)
         return contenido
     
-archivoRuta = "./archivosPrueba/conference1.bib"
+archivoRuta = "./archivosPruebas2/BibTeX/conference_test1.bib"
 conversor2Ris = ConversorBib2Ris(archivoRuta)
 contenidoConvertido = conversor2Ris.procesarArchivo("Ris")

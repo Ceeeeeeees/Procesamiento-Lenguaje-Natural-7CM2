@@ -141,13 +141,13 @@ class ConversorRis2Bib(ConversorBase):
         return contenido
     
     def convertirURL(self, contenido):
-        regexURL = re.compile(r'\bUR\b\s*-\*(https?://[^\s{}]+)\s*')
+        regexURL = re.compile(r'\bUR\b\s*-\s*(https?://[^\s{}]+)\s*')
         coincidencia = regexURL.search(contenido)
 
         if not coincidencia: return contenido
 
         contenidoURL = coincidencia.group(1)
-        escribirBib = "url = {" + contenidoURL + "},"
+        escribirBib = "url = {" + contenidoURL + "},\n"
         contenido = regexURL.sub(escribirBib, contenido)
         return contenido
     
@@ -163,12 +163,12 @@ class ConversorRis2Bib(ConversorBase):
         return contenido
     
     def convertirJournal(self, contenido):
-        regexJournal = re.compile(r'\bJO\b\s*-\s*(.*?)')
+        regexJournal = re.compile(r'\bJO\b\s*-\s*(.*)$', re.MULTILINE)
         coincidencia = regexJournal.search(contenido)
 
         if not coincidencia: return contenido
 
-        contenidoJournal = coincidencia.group(1)
+        contenidoJournal = coincidencia.group(1).strip()
         escribirBib = "journal = {" + contenidoJournal + "},"
         contenido = regexJournal.sub(escribirBib, contenido)
         return contenido
@@ -273,6 +273,6 @@ class ConversorRis2Bib(ConversorBase):
         return contenido
 
     
-archivoRuta = "./archivosPrueba/conference1.ris"
+archivoRuta = "./archivosPrueba/journal1.ris"
 conversorRis2Bib  = ConversorRis2Bib(archivoRuta)
 conversorRis2Bib.procesarArchivo("Bib")

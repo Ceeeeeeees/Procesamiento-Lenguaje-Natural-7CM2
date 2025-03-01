@@ -1,0 +1,31 @@
+TY - JOUR
+ID - 10.1145/3478513.3480520
+AU - Ishiwaka, Yuko
+AU - Zeng, Xiao S.
+AU - Eastman, Michael Lee
+AU - Kakazu, Sho
+AU - Gross, Sarah
+AU - Mizutani, Ryosuke
+AU - Nakada, Masaki
+TI - Foids: bio-inspired fish simulation for generating synthetic datasets
+PY - 2021
+issue_date = {December 2021},
+PB - Association for Computing Machinery
+CY - New York, NY, USA
+VL - 40
+IS - 6
+SN - 0730-0301
+UR - https://doi.org/10.1145/3478513.3480520
+DO - 10.1145/3478513.3480520
+AB - We present a bio-inspired fish simulation platform, which we call "Foids", to generate realistic synthetic datasets for an use in computer vision algorithm training. This is a first-of-its-kind synthetic dataset platform for fish, which generates all the 3D scenes just with a simulation. One of the major challenges in deep learning based computer vision is the preparation of the annotated dataset. It is already hard to collect a good quality video dataset with enough variations; moreover, it is a painful process to annotate a sufficiently large video dataset frame by frame. This is especially true when it comes to a fish dataset because it is difficult to set up a camera underwater and the number of fish (target objects) in the scene can range up to 30,000 in a fish cage on a fish farm. All of these fish need to be annotated with labels such as a bounding box or silhouette, which can take hours to complete manually, even for only a few minutes of video. We solve this challenge by introducing a realistic synthetic dataset generation platform that incorporates details of biology and ecology studied in the aquaculture field. Because it is a simulated scene, it is easy to generate the scene data with annotation labels from the 3D mesh geometry data and transformation matrix. To this end, we develop an automated fish counting system utilizing the part of synthetic dataset that shows comparable counting accuracy to human eyes, which reduces the time compared to the manual process, and reduces physical injuries sustained by the fish.
+JO - ACM Trans. Graph.
+month = dec,
+articleno = {207},
+numpages = {15},
+KW - bio-inspired simulation
+KW - deep learning
+KW - fish counting
+KW - fish schooling
+KW - neural network learning
+KW - physically based animation
+KW - synthetic dataset

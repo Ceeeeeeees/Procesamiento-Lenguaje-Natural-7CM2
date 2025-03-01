@@ -32,10 +32,10 @@ archivosRis2 = ["./archivosPruebas2/RIS/conference_test1.ris",
 while True:
 
     print("Convertir de RIS a BibTeX")
-    print("\nElige el numero de prueba a realizar [Bib o RIS]:")
+    print("\nElige el tipo de prueba[conversion] a realizar [Bib o RIS]:")
     print("1 - Bib a Ris")
     print("2 - RIS a Bib")
-    opcion = input("Opcion:\t")
+    opcion = input("Opcion conversion:\t")
 
     if opcion == "1":
         for indice, archivoBib in enumerate(archivosBib2, start=1):
@@ -50,8 +50,7 @@ while True:
             nuevoNombre = os.path.join(rutaResultado, f"archivo{indice}.bib")
             os.rename(salida, nuevoNombre)
 
-    else:
-        print("Opcion no valida")
+    else: print("Opcion no valida")
 
     print("\n\tPuedes revisar los archivos convertidos en la carpeta archivosConvertidos")
 
