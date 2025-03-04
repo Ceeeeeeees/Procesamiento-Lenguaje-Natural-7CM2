@@ -39,12 +39,12 @@ while True:
 
     if opcion == "1":
         for indice, archivoBib in enumerate(archivosBib2, start=1):
-            conversorBib2Ris = ConversorBib2Ris(archivoBib)
+            conversorBib2Ris = ConversorBib2Ris(archivoBib) 
             salida = conversorBib2Ris.procesarArchivo("Ris")
             nuevoNombre = os.path.join(rutaResultado, f"archivo{indice}.ris")
             os.rename(salida, nuevoNombre)
     elif opcion == "2":
-        for indice, archivoRis in enumerate(archivosRis2, start=1):
+        for indice, archivoRis in enumerate(archivosRis1, start=1):
             conversorRis2Bib = ConversorRis2Bib(archivoRis)
             salida = conversorRis2Bib.procesarArchivo("Bib")
             nuevoNombre = os.path.join(rutaResultado, f"archivo{indice}.bib")
