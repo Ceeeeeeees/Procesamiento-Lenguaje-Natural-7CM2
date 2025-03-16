@@ -13,9 +13,12 @@ El proyecto se organizará mediante carpetas, donde cada una de ellas será dest
 ## 🛠️ Tecnologías y herramientas
 - Lenguaje de programación: Python
 - Librerías:
-    -   spaCy
-
-    
+    -   Regex (P1)
+    -   BeautifulSoup (P2)
+    -   spaCy (P2)
+    -   Requests (P2)
+    -   CSV (P2)
+    -   DateTime (P2)
 
 ## ✍️ Autor
 - Nombre: Saucedo Moreno César Enrique.
