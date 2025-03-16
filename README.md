@@ -13,7 +13,12 @@ El proyecto se organizará mediante carpetas, donde cada una de ellas será dest
 ## 🛠️ Tecnologías y herramientas
 - Lenguaje de programación: Python
 - Librerías:
+    -   spaCy
+
+    
 
 ## ✍️ Autor
 - Nombre: Saucedo Moreno César Enrique.
+
+
 
