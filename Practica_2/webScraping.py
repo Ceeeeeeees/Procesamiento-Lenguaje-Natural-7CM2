@@ -137,7 +137,7 @@ class WebScraping():
             
             for pagina in range(1, maximoPaginas + 1):
                 urlPagina = f"{repositorioURL}?page={pagina}"
-                response = requests.get(urlPagina, headers=headers, timeout=10)
+                response = requests.get(urlPagina, timeout=7)
 
                 # Obtener el contenido de la lista de los articulos
                 soup = BeautifulSoup(response.text, "html.parser")
@@ -150,27 +150,31 @@ class WebScraping():
                         articuloURL = f"https://pubmed.ncbi.nlm.nih.gov/{articuloID}"
 
                         #Obtener el contenido de los articulos
-                        respuestaArticulo = requests.get(articuloURL, headers=headers, timeout=10)
+                        respuestaArticulo = requests.get(articuloURL, timeout=7)
                         articuloSoup = BeautifulSoup(respuestaArticulo.text, "html.parser")
 
                         #Obtener el titulo
                         tituloContenedor = articuloSoup.find("h1", class_="heading-title")
                         titulo = tituloContenedor.text.strip()
 
-                        #Obtener los autores
-                        #<a class="full-name" href="/?term=Mihalcea+L&amp;cauthor_id=29751918" ref="linksrc=author_name_link" data-ga-category="search" data-ga-action="author_link" data-ga-label="Liliana Mihalcea">Liliana Mihalcea</a>
-                        autoresContenedor = articuloSoup.find("div", class_="authors-list")
-                        autores = [autor.text.strip() for autor in autoresContenedor.find_all("a", class_="full-name")]
-
-                        #Obtener el DOI del documento
+                        #Obtener el DOI del documento       Otra forma de capturar el DOI es a través de la etiqueta 
+                        #<meta name="citation_doi" content="">
                         #<span class="identifier doi"><span class="id-label">DOI:</span><a class="id-link" target="_blank" rel="noopener" ref="linksrc=article_id_link&amp;article_id=10.1016/j.foodchem.2018.04.067&amp;id_type=DOI" href="https://doi.org/10.1016/j.foodchem.2018.04.067" data-ga-category="full_text" data-ga-action="DOI">10.1016/j.foodchem.2018.04.067</a></span>
-                        DOIContenedor = articuloSoup.find("span", class_="identifier doi")
-                        elementoDOI = DOIContenedor.find("a", class_="id-link").text.strip()
+                        try:
+                            DOIContenedor = articuloSoup.find("span", class_="identifier doi")
+                            elementoDOI = DOIContenedor.find("a", class_="id-link").text.strip()
+                        except AttributeError:
+                            print(f"No se encontro el DOI del articulo {len(articulos)} de {self.numArticulos}")
+                            pass
 
                         #Obtener los autores
                         #<a class="full-name" href="/?term=Mihalcea+L&amp;cauthor_id=29751918" ref="linksrc=author_name_link" data-ga-category="search" data-ga-action="author_link" data-ga-label="Liliana Mihalcea">Liliana Mihalcea</a>
-                        autoresContenedor = articuloSoup.find("div", class_="authors-list")
-                        autores = [autor.text.strip() for autor in autoresContenedor.find_all("a", class_="full-name")]
+                        try:
+                            autoresContenedor = articuloSoup.find("div", class_="authors-list")
+                            autores = [autor.text.strip() for autor in autoresContenedor.find_all("a", class_="full-name")]
+                        except AttributeError:
+                            print(f"No se encontraron los autores/autor del articulo {len(articulos)} de {self.numArticulos}")
+                            pass
 
                         #Obtener el abstract
                         #<div class="abstract-content selected" id="eng-abstract"><p>Sea buckthorn carotenoids extracted using CO<sub>2</sub> supercritical fluids method were encapsulated within whey proteins isolate by transglutaminase (TG) mediated crosslinking reaction, coacervation and freeze drying. The encapsulation efficiency was 36.23 ± 1.58%, with β-carotene the major carotenoid present in the powder. The confocal analysis revealed that TG-ase mediated cross-linking reaction enhanced the complexes stability to such a manner that a double microencapsulation was performed. The powder showed an antioxidant activity of 2.16 ± 0.14 mMol Trolox/g DW and an antifungal activity against Penicillium expansum MIUG M11. Four variants of domestic ice creams were obtained, with a total carotenoids content variation of 1.63 ± 0.03 mg/g D.W. in sample with 2% powder and 6.38 ± 0.04 mg/g D.W. in samples with 4% extract, having satisfactory antioxidant activity. The storage stability test showed a decrease in both total carotenoids content and antioxidant activity in all samples during 21 days at -18 °C. A protective effect of microencapsulation was evidenced.</p></div>
@@ -205,13 +209,16 @@ class WebScraping():
                             "Seccion" : journal         #Preguntar si se puede renombrar a Seccion
                         })
 
+                        print(f"Obteniendo articulo {len(articulos)} de {self.numArticulos}")
+
                         if len(articulos) >= self.numArticulos: return articulos
 
                     except Exception as ErrorObtenerArticulo:
-                        print(f"Error al obtener articulos: {ErrorObtenerArticulo}")
+                        print(f"Error al obtener el articulo {len(articulos)} de {self.numArticulos}: {ErrorObtenerArticulo}")
                         return None
 
             return articulos
+        
         except Exception as ErrorGeneral:
             print(f"Error al intentar hacer una peticion al repositorio de PubMed y obtener los articulos: {ErrorGeneral}")
             return None
@@ -234,9 +241,7 @@ class WebScraping():
 #WebScraping01.generaArchivo(WebScraping01.obtenerArticulos("Vision&Patrones"), "ArticulosArXivVision&Patrones.csv")
 #WebScraping01.generaArchivo(WebScraping01.obtenerArticulos("Computacion&Lenguaje"), "ArticulosArXivComputacion&Lenguaje.csv")
 #WebScraping01.generaArchivo(WebScraping01.obtenerArticulos("Computacion&Lenguaje"), "ArticulosArXivComputacion&Lenguaje2.csv")
-#WebScrapingPubMed = WebScraping("pubmed", 22)
-#print(WebScrapingPubMed.obtenerArticulos())
-#WebScrapingPubMed.generaArchivo(WebScrapingPubMed.obtenerArticulos(), "ArticulosPubMed.csv")
+
 
 #-------------------------------------------------------------------------------------------------------------------------
 
@@ -251,5 +256,25 @@ class WebScraping():
 #-------------------------------------------------------------------------------------------------------------------------
 
 #Obtener 300 archivos de pubmed
-WebScraping03 = WebScraping("pubmed", 300)
-WebScraping03.generaArchivo(WebScraping03.obtenerArticulos(), "ArticulosPubMed.csv")
+#WebScraping03 = WebScraping("pubmed", 300)       # Con 30 articulos funciona pero tarda
+#articulos = WebScraping03.obtenerArticulos()
+#print(articulos)
+#if articulos:  # Verifica que no sea None
+#    WebScraping03.generaArchivo(articulos, "ArticulosPubMed300_VFinal.csv")
+#else:
+#    print("No se pudieron obtener artículos")
+
+#-------------------------------------------------------------------------------------------------------------------------
+
+#Obtener 300 archivos de arxiv [150 Vision&Patrones y 150 Computacion&Lenguaje]
+WebScraping04 = WebScraping("arxiv", 150)
+archivosVision_Patrones = WebScraping04.obtenerArticulos("Vision&Patrones")
+
+WebScraping05 = WebScraping("arxiv", 150)
+archivosComputacion_Lenguaje = WebScraping05.obtenerArticulos("Computacion&Lenguaje")
+
+#Escribir los archivos en un solo archivo
+archivos = archivosVision_Patrones + archivosComputacion_Lenguaje
+WebScraping05.generaArchivo(archivos, "ArticulosArXiv.csv")
+
+#-------------------------------------------------------------------------------------------------------------------------
