@@ -262,13 +262,13 @@ class WebScraping():
 #-------------------------------------------------------------------------------------------------------------------------
 
 #Obtener 300 archivos de pubmed
-WebScraping03 = WebScraping("pubmed", 300)       # Con 30 articulos funciona pero tarda
-articulos = WebScraping03.obtenerArticulos()
+#WebScraping03 = WebScraping("pubmed", 300)       # Con 30 articulos funciona pero tarda
+#articulos = WebScraping03.obtenerArticulos()
 #print(articulos)
-if articulos:  # Verifica que no sea None
-    WebScraping03.generaArchivo(articulos, "ArticulosPubMed300_VFinal02.csv")
-else:
-    print("No se pudieron obtener artículos")
+#if articulos:  # Verifica que no sea None
+#    WebScraping03.generaArchivo(articulos, "ArticulosPubMed300_VFinal02.csv")
+#else:
+#    print("No se pudieron obtener artículos")
 
 #-------------------------------------------------------------------------------------------------------------------------
 
