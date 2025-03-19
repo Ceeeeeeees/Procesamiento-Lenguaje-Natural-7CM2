@@ -63,7 +63,7 @@ class WebScraping():
             articulos = []
             #entidades = soup.find("dl", id="articles").find_all("dt")[:self.numArticulos]   #Limite de articulos
             contenedoresArticulos = soup.find_all("dl", id="articles")          #Lista con todos los dl de articulos
-            entidades = [dt for dl in contenedoresArticulos for dt in dl.find_all("dt")][:self.numArticulos]
+            entidades = [dt for dl in contenedoresArticulos for dt in dl.find_all("dt")][:self.numArticulos]    #Recorre cada dl y obtenemos los dt
 
             for entidad in entidades:
                 try:
@@ -147,11 +147,15 @@ class WebScraping():
                     try:
                         articuloID = articulo.find("a", class_="docsum-title")["href"]
                         articuloID = articuloID.split("/")[1]
-                        articuloURL = f"https://pubmed.ncbi.nlm.nih.gov/{articuloID}"
+                        articuloURL = f"https://pubmed.ncbi.nlm.nih.gov/{articuloID}?format=pubmed"       # Debo de modificar la lógica para acceder y obtener la información a través del display obtions de ?format=pubmed
 
                         #Obtener el contenido de los articulos
                         respuestaArticulo = requests.get(articuloURL, timeout=20)
                         articuloSoup = BeautifulSoup(respuestaArticulo.text, "html.parser")
+
+                        # Obtener todo el contenido de la página:
+                        contendorArticulo = articuloSoup.find("pre", id="article-details")
+                        #Debo de utilizar expresiones regulares para cachar e ignorar ciertas cosas
 
                         #Obtener el titulo
                         tituloContenedor = articuloSoup.find("h1", class_="heading-title")
