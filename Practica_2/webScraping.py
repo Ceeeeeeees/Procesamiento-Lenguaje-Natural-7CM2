@@ -137,7 +137,7 @@ class WebScraping():
             
             for pagina in range(1, maximoPaginas + 1):
                 urlPagina = f"{repositorioURL}?page={pagina}"
-                response = requests.get(urlPagina, timeout=20)
+                response = requests.get(urlPagina, timeout=10)
 
                 # Obtener el contenido de la lista de los articulos
                 soup = BeautifulSoup(response.text, "html.parser")
@@ -147,27 +147,38 @@ class WebScraping():
                     try:
                         articuloID = articulo.find("a", class_="docsum-title")["href"]
                         articuloID = articuloID.split("/")[1]
-                        articuloURL = f"https://pubmed.ncbi.nlm.nih.gov/{articuloID}?format=pubmed"       # Debo de modificar la lógica para acceder y obtener la información a través del display obtions de ?format=pubmed
+                        articuloURL = f"https://pubmed.ncbi.nlm.nih.gov/{articuloID}/?format=pubmed"       # Debo de modificar la lógica para acceder y obtener la información a través del display obtions de ?format=pubmed
 
                         #Obtener el contenido de los articulos
                         respuestaArticulo = requests.get(articuloURL, timeout=20)
                         articuloSoup = BeautifulSoup(respuestaArticulo.text, "html.parser")
 
                         # Obtener todo el contenido de la página:
-                        contendorArticulo = articuloSoup.find("pre", id="article-details")
-                        #Debo de utilizar expresiones regulares para cachar e ignorar ciertas cosas
+                        contenedorArticulo = articuloSoup.find("pre", id="article-details")
+                        
+                        # Contenido del articulo
+                        contenidoArticulo = contenedorArticulo.text
 
+                        
                         #Obtener el titulo
-                        tituloContenedor = articuloSoup.find("h1", class_="heading-title")
-                        titulo = tituloContenedor.text.strip()
-
-                        #Obtener el DOI del documento       Otra forma de capturar el DOI es a través de la etiqueta 
-                        #<meta name="citation_doi" content="">
-                        #<span class="identifier doi"><span class="id-label">DOI:</span><a class="id-link" target="_blank" rel="noopener" ref="linksrc=article_id_link&amp;article_id=10.1016/j.foodchem.2018.04.067&amp;id_type=DOI" href="https://doi.org/10.1016/j.foodchem.2018.04.067" data-ga-category="full_text" data-ga-action="DOI">10.1016/j.foodchem.2018.04.067</a></span>
                         try:
-                            DOIContenedor = articuloSoup.find("span", class_="identifier doi")
-                            if DOIContenedor:
-                                elementoDOI = DOIContenedor.find("a", class_="id-link").text.strip()
+                            regexTitulo = re.compile(r'\bTI\b\s*-\s*(.*(?:\r?\n\s+.*)*)', re.MULTILINE)
+                            coincidenciaTitulo = regexTitulo.search(contenidoArticulo)
+                            if coincidenciaTitulo:
+                                titulo = coincidenciaTitulo.group(1).replace('\r', '').replace('\n', ' ')
+                                titulo = re.sub(r'\s+', ' ', titulo).strip()
+                            else:
+                                raise AttributeError
+                        except AttributeError:
+                            print(f"No se encontro el titulo del articulo {len(articulos)} de {self.numArticulos}")
+                            titulo = ""
+
+                        #Obtener el DOI del documento
+                        try:
+                            regexDOI = re.compile(r'\bLID\b\s*-\s*(10\.[\d]+/[^\s\r\n]*)')
+                            coincidenciaDOI = regexDOI.search(contenidoArticulo)
+                            if coincidenciaDOI:
+                                elementoDOI = coincidenciaDOI.group(1).replace('\r', '').replace('\n', ' ').strip()
                             else:
                                 raise AttributeError
                         except AttributeError:
@@ -176,38 +187,58 @@ class WebScraping():
 
                         #Obtener los autores
                         #<a class="full-name" href="/?term=Mihalcea+L&amp;cauthor_id=29751918" ref="linksrc=author_name_link" data-ga-category="search" data-ga-action="author_link" data-ga-label="Liliana Mihalcea">Liliana Mihalcea</a>
+                        autores = []
                         try:
-                            autoresContenedor = articuloSoup.find("div", class_="authors-list")
-                            if autoresContenedor:                                
-                                autores = [autor.text.strip() for autor in autoresContenedor.find_all("a", class_="full-name")]
+                            regexAutor = re.compile(r'\bFAU\b\s*-\s*(.*(?:\r?\n\s+.*)*)', re.MULTILINE)
+                            coincidenciasAutores = regexAutor.findall(contenidoArticulo)
+
+                            if coincidenciasAutores:                                
+                                autores = [autor.replace('\r', '').replace('\n', ' ').strip() for autor in coincidenciasAutores]                            
                             else:
                                 raise AttributeError
                         except AttributeError:
                             print(f"No se encontraron los autores/autor del articulo {len(articulos)} de {self.numArticulos}")
-                            autores = []
+                            
 
                         #Obtener el abstract
-                        #<div class="abstract-content selected" id="eng-abstract"><p>Sea buckthorn carotenoids extracted using CO<sub>2</sub> supercritical fluids method were encapsulated within whey proteins isolate by transglutaminase (TG) mediated crosslinking reaction, coacervation and freeze drying. The encapsulation efficiency was 36.23 ± 1.58%, with β-carotene the major carotenoid present in the powder. The confocal analysis revealed that TG-ase mediated cross-linking reaction enhanced the complexes stability to such a manner that a double microencapsulation was performed. The powder showed an antioxidant activity of 2.16 ± 0.14 mMol Trolox/g DW and an antifungal activity against Penicillium expansum MIUG M11. Four variants of domestic ice creams were obtained, with a total carotenoids content variation of 1.63 ± 0.03 mg/g D.W. in sample with 2% powder and 6.38 ± 0.04 mg/g D.W. in samples with 4% extract, having satisfactory antioxidant activity. The storage stability test showed a decrease in both total carotenoids content and antioxidant activity in all samples during 21 days at -18 °C. A protective effect of microencapsulation was evidenced.</p></div>
-                        abstractContenedor = articuloSoup.find("div", class_="abstract-content selected")
-                        abstract = abstractContenedor.p.get_text(" ", strip=True) if abstractContenedor and abstractContenedor.p else "Sin Abstract"    # Obtiene el texto del abstract y lo separa por espacios, strip=True sirve para eliminar los espacios en blanco
+                        try:
+                            regexAbstract = re.compile(r'\bAB\b\s*-\s*(.*(?:\r?\n\s+.*)*)', re.MULTILINE)
+                            coincidenciaAbstract = regexAbstract.search(contenidoArticulo)
+                            if coincidenciaAbstract:
+                                abstract = coincidenciaAbstract.group(1).replace('\r', '').replace('\n', ' ').strip()
+                                abstract = re.sub(r'\s+', ' ', abstract).strip()
+                        except AttributeError:
+                            print(f"No se encontro el abstract del articulo {len(articulos)} de {self.numArticulos}")
 
                         #Obtener la fecha de publicacion
-                        #<div class="article-source"><div class="journal-actions dropdown-block"><button id="full-view-journal-trigger" class="journal-actions-trigger trigger" ref="linksrc=journal_actions_btn" title="Food chemistry" tabindex="0" aria-controls="full-view-journal" aria-expanded="false" aria-label="Toggle dropdown menu for journal Food chemistry" data-pinger-ignore="">Food Chem</button><div id="full-view-journal" class="journal-actions-dropdown dropdown dropdown-container" aria-label="Dropdown menu for journal Food chemistry" aria-hidden="true"><div class="title">Actions</div><div class="content"><ul class="journal-actions-links"><li><a class="search-in-pubmed-link dropdown-block-link" href="/?term=%22Food+Chem%22%5Bjour%5D&amp;sort=date&amp;sort_order=desc" data-href="/?term=%22Food+Chem%22%5Bjour%5D&amp;sort=date&amp;sort_order=desc" ref="linksrc=search_in_pubmed_journal_name_link&amp;journal_abbrev=Food Chem" data-ga-category="search" data-ga-action="journal_link" data-ga-label="Food Chem">Search in PubMed</a></li><li><a class="search-in-nlm-catalog-link dropdown-block-link" ref="linksrc=search_in_nlm_catalog_link" href="https://www.ncbi.nlm.nih.gov/nlmcatalog?term=%22Food+Chem%22%5BTitle+Abbreviation%5D" data-ga-category="search_catalog" data-ga-action="journal_link" data-ga-label="Food Chem">Search in NLM Catalog</a></li><li><a class="add-to-search-link dropdown-block-link" ref="linksrc=add_to_search_link" role="button" data-search-term="&quot;Food Chem&quot;[jour]" data-ga-category="search" data-ga-action="add_to_search" data-ga-label="&quot;Food Chem&quot;[jour]" href="#">Add to Search</a></li></ul></div></div></div><span class="period">. </span><spanclass="cit">2018 Oct 1:262:30-38.</span></div>
-                        #<meta name="citation_date" content="03/10/2025">
-                        fechaContenedor = articuloSoup.find("meta", {"name": "citation_date"})
-                        fecha = fechaContenedor.get("content")
-                        
-                        if len(fecha.split("/")) == 3:
-                            fecha = datetime.strptime(fecha, "%m/%d/%Y").strftime("%d/%m/%Y")
-                        elif len(fecha.split()) == 2:
-                            fecha = datetime.strptime(fecha, "%Y %b").strftime("%m/%Y")
-                        else:
-                            fecha = fecha
+                        #PHST- 2025/03/11 00:24 [pubmed]
+                        #PHST - 2025/03 [pubmed]
+
+                        try:
+                            regexFecha = re.compile(r'\bPHST\b\s*-\s*(\d{4})(?:/|\s)(\d{2})(?:(?:/|\s)(\d{2}))?')
+                            coincidenciaFecha = regexFecha.search(contenidoArticulo)
+                            if coincidenciaFecha:
+                                anio = coincidenciaFecha.group(1)
+                                mes = coincidenciaFecha.group(2) if coincidenciaFecha.group(2) else "00"
+                                dia = coincidenciaFecha.group(3) if coincidenciaFecha.group(3) else "00"
+                                fecha = f"{dia}/{mes}/{anio}"
+                            else:
+                                raise AttributeError
+                        except AttributeError:
+                            print(f"No se encontro la fecha del articulo {len(articulos)} de {self.numArticulos}")
+                            fecha = "00/00/0000"
 
                         #Obtener el journal
-                        #<meta name="citation_journal_title" content="Nature genetics">
-                        journalContenedor = articuloSoup.find("meta", {"name": "citation_journal_title"})
-                        journal = journalContenedor.get("content")
+                        try:
+                            regexJournal = re.compile(r'\bJT\b\s*-\s*(.*(?:\r?\n\s+.*)*)', re.MULTILINE)
+                            coincidenciaJournal = regexJournal.search(contenidoArticulo)
+                            if coincidenciaJournal:
+                                journal = coincidenciaJournal.group(1).replace('\r', '').replace('\n', ' ').strip()
+                            else:
+                                raise AttributeError
+                        except AttributeError:
+                            print(f"No se encontro el journal del articulo {len(articulos)} de {self.numArticulos}")
+                            journal = ""
 
 
                         articulos.append({
@@ -224,7 +255,7 @@ class WebScraping():
                         if len(articulos) >= self.numArticulos: return articulos
 
                     except Exception as ErrorObtenerArticulo:
-                        print(f"Error al obtener el articulo {len(articulos)} de {self.numArticulos}: {ErrorObtenerArticulo}")
+                        print(f"Error al obtener algun elemento del articulo {len(articulos)} de {self.numArticulos}: {ErrorObtenerArticulo}")
                         return None
 
             return articulos
@@ -266,13 +297,13 @@ class WebScraping():
 #-------------------------------------------------------------------------------------------------------------------------
 
 #Obtener 300 archivos de pubmed
-#WebScraping03 = WebScraping("pubmed", 300)       # Con 30 articulos funciona pero tarda
-#articulos = WebScraping03.obtenerArticulos()
-#print(articulos)
-#if articulos:  # Verifica que no sea None
-#    WebScraping03.generaArchivo(articulos, "ArticulosPubMed300_VFinal02.csv")
-#else:
-#    print("No se pudieron obtener artículos")
+WebScraping03 = WebScraping("pubmed", 2)       # Con 30 articulos funciona pero tarda
+articulos = WebScraping03.obtenerArticulos()
+print(articulos)
+if articulos:  # Verifica que no sea None
+    WebScraping03.generaArchivo(articulos, "ArticulosPubMedTest.csv")
+else:
+    print("No se pudieron obtener artículos")
 
 #-------------------------------------------------------------------------------------------------------------------------
 
