@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 import csv
 import math
+from time import sleep
 
 class WebScraping():
 
@@ -126,6 +127,8 @@ class WebScraping():
             return None
 
     def _obtener_pubmed_articulos(self):
+        import concurrent.futures
+        
         headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
         }
@@ -134,7 +137,9 @@ class WebScraping():
             maximoPaginas = math.ceil(self.numArticulos / 10)
             repositorioURL = self.urls["pubmed"]["repositorioTendenciaPubmed"]
             articulos = []
+            articulo_ids = []
             
+            # Primero recolectamos todos los IDs de artículos
             for pagina in range(1, maximoPaginas + 1):
                 urlPagina = f"{repositorioURL}?page={pagina}"
                 response = requests.get(urlPagina, timeout=10)
@@ -297,11 +302,11 @@ class WebScraping():
 #-------------------------------------------------------------------------------------------------------------------------
 
 #Obtener 300 archivos de pubmed
-WebScraping03 = WebScraping("pubmed", 2)       # Con 30 articulos funciona pero tarda
+WebScraping03 = WebScraping("pubmed", 300)       # Con 30 articulos funciona pero tarda
 articulos = WebScraping03.obtenerArticulos()
-print(articulos)
+#print(articulos)
 if articulos:  # Verifica que no sea None
-    WebScraping03.generaArchivo(articulos, "ArticulosPubMedTest.csv")
+    WebScraping03.generaArchivo(articulos, "ArticulosPubMed300_V20_03_2025.csv")
 else:
     print("No se pudieron obtener artículos")
 
