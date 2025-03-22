@@ -4,7 +4,6 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 import csv
 import math
-from time import sleep
 
 class WebScraping():
 
