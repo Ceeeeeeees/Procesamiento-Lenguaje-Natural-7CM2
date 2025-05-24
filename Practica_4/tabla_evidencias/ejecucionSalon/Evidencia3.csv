@@ -1,0 +1,32 @@
+ML_Model,Text_Representation,ngram_range,ML_Hyperparameters,Text_Normalization,Balance_Methods,Average_f-score_Macro
+svc,tfidf,"(1, 1)","{'kernel': 'linear', 'C': 1.0}",Tokenizacion + Lematizacion,None,0.75178562382858
+random_forest,tfidf,"(1, 1)",{'n_estimators': 100},Tokenizacion + Lematizacion,None,0.7479280129302043
+logistic_regression,frecuencia,"(1, 1)",{'max_iter': 200},Tokenizacion + Lematizacion,None,0.7473955064641646
+logistic_regression,tfidf,"(1, 1)",{'max_iter': 200},Tokenizacion + Lematizacion,None,0.7457751539644395
+logistic_regression,binaria,"(1, 1)",{'max_iter': 200},Tokenizacion + Lematizacion,None,0.7386907387925477
+svc,binaria,"(1, 1)","{'kernel': 'linear', 'C': 1.0}",Tokenizacion + Lematizacion,None,0.7368223174674788
+svc,frecuencia,"(1, 1)","{'kernel': 'linear', 'C': 1.0}",Tokenizacion + Lematizacion,None,0.7299910511319804
+naive_bayes,binaria,"(1, 1)",{},Tokenizacion + Lematizacion,None,0.7137377668725499
+logistic_regression,svd,"(1, 1)",{'max_iter': 200},Tokenizacion + Lematizacion,None,0.7108843537414966
+svc,tfidf,"(2, 2)","{'kernel': 'linear', 'C': 1.0}",Tokenizacion + Lematizacion,None,0.7042006950852471
+naive_bayes,frecuencia,"(1, 1)",{},Tokenizacion + Lematizacion,None,0.6998567605262166
+logistic_regression,tfidf,"(2, 2)",{'max_iter': 200},Tokenizacion + Lematizacion,None,0.6961938300840929
+naive_bayes,tfidf,"(1, 1)",{},Tokenizacion + Lematizacion,None,0.6829474395808687
+logistic_regression,binaria,"(2, 2)",{'max_iter': 200},Tokenizacion + Lematizacion,None,0.6825100963031998
+logistic_regression,frecuencia,"(2, 2)",{'max_iter': 200},Tokenizacion + Lematizacion,None,0.6694625660142901
+svc,binaria,"(2, 2)","{'kernel': 'linear', 'C': 1.0}",Tokenizacion + Lematizacion,None,0.6673747148139406
+naive_bayes,tfidf,"(2, 2)",{},Tokenizacion + Lematizacion,None,0.6596158521760273
+naive_bayes,binaria,"(2, 2)",{},Tokenizacion + Lematizacion,None,0.6594526681718135
+svc,frecuencia,"(2, 2)","{'kernel': 'linear', 'C': 1.0}",Tokenizacion + Lematizacion,None,0.6577166367155747
+naive_bayes,frecuencia,"(2, 2)",{},Tokenizacion + Lematizacion,None,0.6478037573927985
+random_forest,tfidf,"(2, 2)",{'n_estimators': 100},Tokenizacion + Lematizacion,None,0.6402754462297441
+svc,tfidf,"(3, 3)","{'kernel': 'linear', 'C': 1.0}",Tokenizacion + Lematizacion,None,0.5826886429971984
+logistic_regression,tfidf,"(3, 3)",{'max_iter': 200},Tokenizacion + Lematizacion,None,0.5774584000642012
+naive_bayes,binaria,"(3, 3)",{},Tokenizacion + Lematizacion,None,0.5743446920761461
+naive_bayes,tfidf,"(3, 3)",{},Tokenizacion + Lematizacion,None,0.5742092457420924
+naive_bayes,frecuencia,"(3, 3)",{},Tokenizacion + Lematizacion,None,0.5731375042167268
+random_forest,tfidf,"(3, 3)",{'n_estimators': 100},Tokenizacion + Lematizacion,None,0.5494849417640331
+logistic_regression,frecuencia,"(3, 3)",{'max_iter': 200},Tokenizacion + Lematizacion,None,0.5337105562541165
+logistic_regression,binaria,"(3, 3)",{'max_iter': 200},Tokenizacion + Lematizacion,None,0.5303854909469177
+svc,frecuencia,"(3, 3)","{'kernel': 'linear', 'C': 1.0}",Tokenizacion + Lematizacion,None,0.5241689857325808
+svc,binaria,"(3, 3)","{'kernel': 'linear', 'C': 1.0}",Tokenizacion + Lematizacion,None,0.5241689857325808

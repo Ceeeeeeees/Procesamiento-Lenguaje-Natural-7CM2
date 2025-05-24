@@ -15,10 +15,15 @@ El proyecto se organizará mediante carpetas, donde cada una de ellas será dest
 - Librerías:
     -   Regex (P1)
     -   BeautifulSoup (P2)
-    -   spaCy (P2)
+    -   spaCy (P2, P3, P4)
     -   Requests (P2)
-    -   CSV (P2)
+    -   CSV (P2, P3, P4)
     -   DateTime (P2)
+
+## Descripción de las prácticas
+- `/Práctica 1`/: En ella manejamos la conversión de archivos de extensiones utilizadas para guardar y compartir referencias bibliográficas (bib y ris), para ello, prácticamos con expresiones regulares para convertir de referencias con campos especificos de bib a ris y viceversa.
+
+
 
 ## ✍️ Autor
 - Nombre: Saucedo Moreno César Enrique.

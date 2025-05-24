@@ -1,0 +1,8 @@
+Tipo_Normalizacion,Mejor_Modelo,Vectorizacion,N-grams,F1_Macro,CV_Media,CV_Desviacion
+Tokenizacion,logistic_regression,binaria,"(1, 1)",0.7650846377866765,0.7424666058121913,0.03157508969452228
+Lematizacion,logistic_regression,binaria,"(1, 1)",0.7466018963987109,0.7320861842346778,0.023689677054584683
+Tokenizacion_Lematizacion,logistic_regression,binaria,"(1, 1)",0.7466018963987109,0.7320861842346778,0.023689677054584683
+Stopwords,random_forest,frecuencia,"(1, 1)",0.685251798561151,0.626275595048466,0.02855066370690081
+Tokenizacion_Stopwords,logistic_regression,binaria,"(1, 1)",0.6838746759568803,0.678404551251762,0.041991368298311745
+Completo,svc,binaria,"(1, 1)",0.6399462606359158,0.6166639001484426,0.036764858975124444
+Stopwords_Lematizacion,svc,binaria,"(1, 1)",0.6399462606359158,0.6166639001484426,0.036764858975124444

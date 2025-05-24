@@ -1,0 +1,25 @@
+ML_Model,Text_Representation,ngram_range,ML_Hyperparameters,Text_Normalization,Balance_Methods,Average_f-score_Macro
+svc,binaria,"(1, 1)","{'kernel': 'linear', 'C': 1.0}","Tokenizacion, lemmatization and stopword removal",None,0.6399462606359158
+mlp,binaria,"(1, 1)","{'hidden_layer_sizes': (100,), 'max_iter': 100}","Tokenizacion, lemmatization and stopword removal",None,0.6386738137780426
+mlp,frecuencia,"(1, 1)","{'hidden_layer_sizes': (100,), 'max_iter': 100}","Tokenizacion, lemmatization and stopword removal",None,0.6327501662234043
+mlp,tfidf,"(1, 1)","{'hidden_layer_sizes': (100,), 'max_iter': 100}","Tokenizacion, lemmatization and stopword removal",None,0.6315512444544702
+svc,frecuencia,"(1, 1)","{'kernel': 'linear', 'C': 1.0}","Tokenizacion, lemmatization and stopword removal",None,0.6267455430802045
+logistic_regression,frecuencia,"(1, 1)",{'max_iter': 200},"Tokenizacion, lemmatization and stopword removal",None,0.6246936274509804
+svc,tfidf,"(1, 1)","{'kernel': 'linear', 'C': 1.0}","Tokenizacion, lemmatization and stopword removal",None,0.622322730622073
+naive_bayes,frecuencia,"(1, 1)",{},"Tokenizacion, lemmatization and stopword removal",None,0.6189482744370438
+logistic_regression,binaria,"(1, 1)",{'max_iter': 200},"Tokenizacion, lemmatization and stopword removal",None,0.6164451357466063
+naive_bayes,binaria,"(1, 1)",{},"Tokenizacion, lemmatization and stopword removal",None,0.59925130295237
+mlp,tfidf,"(2, 2)","{'hidden_layer_sizes': (100,), 'max_iter': 100}","Tokenizacion, lemmatization and stopword removal",None,0.5325997454899318
+naive_bayes,frecuencia,"(2, 2)",{},"Tokenizacion, lemmatization and stopword removal",None,0.5322276896907843
+mlp,frecuencia,"(2, 2)","{'hidden_layer_sizes': (100,), 'max_iter': 100}","Tokenizacion, lemmatization and stopword removal",None,0.5215905560733147
+mlp,binaria,"(2, 2)","{'hidden_layer_sizes': (100,), 'max_iter': 100}","Tokenizacion, lemmatization and stopword removal",None,0.5204202032504852
+naive_bayes,binaria,"(2, 2)",{},"Tokenizacion, lemmatization and stopword removal",None,0.510841125747958
+logistic_regression,tfidf,"(1, 1)",{'max_iter': 200},"Tokenizacion, lemmatization and stopword removal",None,0.5100707675557975
+svc,tfidf,"(2, 2)","{'kernel': 'linear', 'C': 1.0}","Tokenizacion, lemmatization and stopword removal",None,0.4825512759689751
+svc,binaria,"(2, 2)","{'kernel': 'linear', 'C': 1.0}","Tokenizacion, lemmatization and stopword removal",None,0.4781825696740671
+svc,frecuencia,"(2, 2)","{'kernel': 'linear', 'C': 1.0}","Tokenizacion, lemmatization and stopword removal",None,0.4766240049258917
+logistic_regression,binaria,"(2, 2)",{'max_iter': 200},"Tokenizacion, lemmatization and stopword removal",None,0.45227800722767164
+logistic_regression,frecuencia,"(2, 2)",{'max_iter': 200},"Tokenizacion, lemmatization and stopword removal",None,0.45098039215686275
+naive_bayes,tfidf,"(2, 2)",{},"Tokenizacion, lemmatization and stopword removal",None,0.442194792733896
+naive_bayes,tfidf,"(1, 1)",{},"Tokenizacion, lemmatization and stopword removal",None,0.43081101299377145
+logistic_regression,tfidf,"(2, 2)",{'max_iter': 200},"Tokenizacion, lemmatization and stopword removal",None,0.42198930286017783
